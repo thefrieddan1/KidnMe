@@ -8,9 +8,8 @@ export const kidsFetch = () => {
   const { currentUser } = firebase.auth();
 
   return (dispatch) => {
-    firebase.database().ref(`/gardens/${currentUser.uid}/groups/babies`)
+    firebase.database().ref(`/gardens/${currentUser.uid}/groups/`)
     .on('value', snapshot => {
-      console.log(snapshot.val());
       dispatch({ type: KIDS_FETCH_SUCCESS, payload: snapshot.val() });
     });
   };

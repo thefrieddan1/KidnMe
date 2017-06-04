@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { ListView } from 'react-native';
+import { Text, View, ListView } from 'react-native';
 import { connect } from 'react-redux';
 import { kidsFetch } from '../actions';
 import ListItem from './ListItem';
@@ -8,41 +8,89 @@ import ListItem from './ListItem';
 class KidsList extends Component {
   componentWillMount() {
     this.props.kidsFetch();
-    this.createDataSource(this.props);
+    this.createBabyDataSource(this.props);
+    this.createPaototDataSource(this.props);
+    this.createBogrimDataSource(this.props);
   }
 
   componentWillReceiveProps(nextProps) {
-    this.createDataSource(nextProps);
+    this.createBabyDataSource(nextProps);
+    this.createPaototDataSource(nextProps);
+    this.createBogrimDataSource(nextProps);
   }
 
-  createDataSource({ kids }) {
+  createBabyDataSource({ babies }) {
     const ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
     });
 
-    this.dataSource = ds.cloneWithRows(kids);
+    this.babyDataSource = ds.cloneWithRows(babies);
   }
 
-  renderRow(kid) {
-    return <ListItem kid={kid} />;
+  createPaototDataSource({ paotot }) {
+    const ds = new ListView.DataSource({
+      rowHasChanged: (r1, r2) => r1 !== r2
+    });
+
+    this.paototDataSource = ds.cloneWithRows(paotot);
+  }
+
+  createBogrimDataSource({ bogrim }) {
+    const ds = new ListView.DataSource({
+      rowHasChanged: (r1, r2) => r1 !== r2
+    });
+
+    this.bogrimDataSource = ds.cloneWithRows(bogrim);
+  }
+
+  renderRow(baby) {
+    return <ListItem baby={baby} />;
   }
 
   render() {
     return (
-      <ListView
-        enableEmptySections
-        dataSource={this.dataSource}
-        renderRow={this.renderRow}
-      />
+      <View>
+        <Text>
+          Babies
+        </Text>
+        <ListView
+          enableEmptySections
+          dataSource={this.babyDataSource}
+          renderRow={this.renderRow}
+        />
+        <Text>
+          Paotot
+        </Text>
+        <ListView
+          enableEmptySections
+          dataSource={this.paototDataSource}
+          renderRow={this.renderRow}
+        />
+        <Text>
+          Bogrim
+        </Text>
+        <ListView
+          enableEmptySections
+          dataSource={this.bogrimDataSource}
+          renderRow={this.renderRow}
+        />
+    </View>
     );
   }
 }
 
 const mapStateToProps = state => {
-  const kids = _.map(state.kids, (val) => {
-    return { val };
+  const babies = _.map(state.kids.babies, (val, uid) => {
+    return { ...val, uid };
   });
-  return { kids };
+  const paotot = _.map(state.kids.paotot, (val, uid) => {
+    return { ...val, uid };
+  });
+  const bogrim = _.map(state.kids.bogrim, (val, uid) => {
+    return { ...val, uid };
+  });
+
+  return { babies, paotot, bogrim };
 };
 
 export default connect(mapStateToProps, { kidsFetch })(KidsList);
