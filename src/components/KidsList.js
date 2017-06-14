@@ -1,9 +1,10 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { Text, View, ListView } from 'react-native';
+import { ScrollView, Text, ListView } from 'react-native';
 import { connect } from 'react-redux';
 import { kidsFetch } from '../actions';
 import ListItem from './ListItem';
+import { CardSection } from './common';
 
 class KidsList extends Component {
   componentWillMount() {
@@ -49,7 +50,8 @@ class KidsList extends Component {
 
   render() {
     return (
-      <View>
+      <ScrollView>
+        <CardSection>
         <Text>
           Babies
         </Text>
@@ -58,6 +60,8 @@ class KidsList extends Component {
           dataSource={this.babyDataSource}
           renderRow={this.renderRow}
         />
+      </CardSection>
+      <CardSection>
         <Text>
           Paotot
         </Text>
@@ -66,6 +70,8 @@ class KidsList extends Component {
           dataSource={this.paototDataSource}
           renderRow={this.renderRow}
         />
+      </CardSection>
+      <CardSection>
         <Text>
           Bogrim
         </Text>
@@ -74,7 +80,8 @@ class KidsList extends Component {
           dataSource={this.bogrimDataSource}
           renderRow={this.renderRow}
         />
-    </View>
+      </CardSection>
+      </ScrollView>
     );
   }
 }

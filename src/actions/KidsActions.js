@@ -6,7 +6,7 @@ import {
 
 export const kidsFetch = () => {
   const { currentUser } = firebase.auth();
-
+    
   return (dispatch) => {
     firebase.database().ref(`/gardens/${currentUser.uid}/groups/`)
     .on('value', snapshot => {

@@ -1,23 +1,26 @@
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, Image } from 'react-native';
+import firebase from 'firebase';
 import { CardSection } from './common';
 
 class ListItem extends Component {
   render() {
-    const { name } = this.props.baby;
-    const { last_name } = this.props.baby;
-    const { woke_up } = this.props.baby;
+    const { name, last_name, woke_up, image } = this.props.baby;
+    const img = image || `https://firebasestorage.googleapis.com/v0/b/kidnme-d36d6.appspot.com/o/Images%2Fdefault.png?alt=media&token=1ffda325-d7dd-4b2d-bbdc-d21529e8603b`;
     return (
-      <CardSection>
-        <View>
-          <Text style={styles.titleStyle}>
-            {name} {last_name}
-          </Text>
-          <Text>
-            {woke_up}
-          </Text>
+      <View>
+        <Text style={styles.titleStyle}>
+          {name} {last_name}
+        </Text>
+        <Text>
+          {woke_up}
+        </Text>
+        <Image
+        style={styles.imageStyle}
+        source={{ uri: img }}
+        resizeMode='contain'
+        />
       </View>
-    </CardSection>
     );
  }
 }
@@ -26,6 +29,11 @@ const styles = {
   titleStyle: {
     fontSize: 18,
     paddingLeft: 15
+  },
+  imageStyle: {
+    height: 75,
+    flex: 1,
+    width: 75
   }
 };
 
