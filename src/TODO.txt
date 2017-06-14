@@ -1,6 +1,7 @@
 TODO list:
-How parent login ? using kid ID
+* How parent login ? using kid ID
                    when in Garden mode show all kids
                    when in parent mode show specific kid
 
-In general page show kids with categories.
+* Add option to update eat and sleep time for groups ( not just per kid )
+* set the times for sleep poop eat on firebase for parent to see

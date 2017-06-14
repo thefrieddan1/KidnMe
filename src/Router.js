@@ -16,7 +16,7 @@ const RouterComponent = () => {
           title="KidsList"
           initial
         />
-    </Scene>
+     </Scene>
     </Router>
   );
 };
