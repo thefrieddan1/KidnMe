@@ -56,15 +56,15 @@ class ListItem extends Component {
   render() {
     const { name, lastName, wokeUp, image, poop, eat } = this.props.baby;
     const img = image || 'https://firebasestorage.googleapis.com/v0/b/kidnme-d36d6.appspot.com/o/Images%2Fdefault.png?alt=media&token=1ffda325-d7dd-4b2d-bbdc-d21529e8603b';
+    console.log(this.props.type);
     return (
-      <View>
+      <View style={styles.container}>
         <Image
         style={styles.imageStyle}
         source={{ uri: img }}
-        resizeMode='contain'
         />
         <Text style={styles.titleStyle}>
-          name: {name} {lastName}
+          {name} {lastName}
         </Text>
         <Button onPress={this.onWakeUpPressed.bind(this)}>
           woke up at: {wokeUp}
@@ -87,15 +87,22 @@ class ListItem extends Component {
 }
 
 const styles = {
+  container: {
+    flex: 1,
+    padding: 12,
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
   titleStyle: {
-    fontSize: 18,
+    marginLeft: 6,
+    fontSize: 16,
     paddingLeft: 15
   },
   imageStyle: {
-    height: 75,
-    flex: 1,
-    width: 75
-  }
+    height: 40,
+    width: 40,
+    borderRadius: 20
+  },
 };
 
 export default ListItem;

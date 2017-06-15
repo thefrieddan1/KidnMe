@@ -1,47 +1,65 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { ScrollView, Text, ListView } from 'react-native';
+import { ListView, View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { kidsFetch } from '../actions';
 import ListItem from './ListItem';
-import { CardSection } from './common';
+import { SearchHeader, SectionHeader } from './common';
 
 class KidsList extends Component {
   componentWillMount() {
     this.props.kidsFetch();
-    this.createBabyDataSource(this.props);
-    this.createPaototDataSource(this.props);
-    this.createBogrimDataSource(this.props);
+    this.createDataSource(this.props);
   }
 
   componentWillReceiveProps(nextProps) {
-    this.createBabyDataSource(nextProps);
-    this.createPaototDataSource(nextProps);
-    this.createBogrimDataSource(nextProps);
+    this.createDataSource(nextProps);
   }
 
-  createBabyDataSource({ babies }) {
+  createDataSource({ babies }) {
+    const getSectionData = (dataBlob, sectionId) => dataBlob[sectionId];
+    const getRowData = (dataBlob, sectionId, rowId) => dataBlob[`${rowId}`];
+
     const ds = new ListView.DataSource({
-      rowHasChanged: (r1, r2) => r1 !== r2
+      rowHasChanged: (r1, r2) => r1 !== r2,
+      sectionHeaderHasChanged: (s1, s2) => s1 !== s2,
+        getSectionData,
+        getRowData
     });
 
-    this.babyDataSource = ds.cloneWithRows(babies);
+    const { dataBlob, sectionIds, rowIds } = this.formatData(babies);
+    this.dataSource = ds.cloneWithRowsAndSections(dataBlob, sectionIds, rowIds);
   }
 
-  createPaototDataSource({ paotot }) {
-    const ds = new ListView.DataSource({
-      rowHasChanged: (r1, r2) => r1 !== r2
-    });
+  /*
+  * formating the data
+  * for HeaderSection with sticky headers according to groups
+  */
+  formatData(babies) {
+    // now groups is hard coded need to take the groups from the children group
+    const groups = 'babies,paotot,bogrim'.split(',');
 
-    this.paototDataSource = ds.cloneWithRows(paotot);
-  }
+    const dataBlob = {};
+    const sectionIds = [];
+    const rowIds = [];
 
-  createBogrimDataSource({ bogrim }) {
-    const ds = new ListView.DataSource({
-      rowHasChanged: (r1, r2) => r1 !== r2
-    });
+    for (let sectionId = 0; sectionId < groups.length; sectionId++) {
+      const currentGroup = groups[sectionId];      
+      const users = babies.filter((baby) => baby.group === currentGroup);
 
-    this.bogrimDataSource = ds.cloneWithRows(bogrim);
+      if (users.length > 0) {
+        sectionIds.push(sectionId);
+        dataBlob[sectionId] = { group: currentGroup };
+        rowIds.push([]);
+
+        for (let i = 0; i < users.length; i++) {
+          const rowId = `${sectionId}:${i}`;
+          rowIds[rowIds.length - 1].push(rowId);
+          dataBlob[rowId] = users[i];
+        }
+      }
+    }
+    return { dataBlob, sectionIds, rowIds };
   }
 
   renderRow(baby) {
@@ -50,54 +68,35 @@ class KidsList extends Component {
 
   render() {
     return (
-      <ScrollView>
-        <CardSection>
-        <Text>
-          Babies
-        </Text>
         <ListView
+          style={styles.container}
           enableEmptySections
-          dataSource={this.babyDataSource}
+          dataSource={this.dataSource}
           renderRow={this.renderRow}
+          renderSeparator={(sectionId, rowId) => <View key={rowId} style={styles.separator} />}
+          renderHeader={() => <SearchHeader />}
+          renderSectionHeader={(sectionData) => <SectionHeader {...sectionData} />}
         />
-      </CardSection>
-      <CardSection>
-        <Text>
-          Paotot
-        </Text>
-        <ListView
-          enableEmptySections
-          dataSource={this.paototDataSource}
-          renderRow={this.renderRow}
-        />
-      </CardSection>
-      <CardSection>
-        <Text>
-          Bogrim
-        </Text>
-        <ListView
-          enableEmptySections
-          dataSource={this.bogrimDataSource}
-          renderRow={this.renderRow}
-        />
-      </CardSection>
-      </ScrollView>
     );
   }
 }
 
-const mapStateToProps = state => {
-  const babies = _.map(state.kids.babies, (val, uid) => {
-    return { ...val, uid };
-  });
-  const paotot = _.map(state.kids.paotot, (val, uid) => {
-    return { ...val, uid };
-  });
-  const bogrim = _.map(state.kids.bogrim, (val, uid) => {
-    return { ...val, uid };
-  });
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  separator: {
+    flex: 1,
+    height: StyleSheet.hairlineWidth,
+    backgroundColor: '#8E8E8E',
+  },
+});
 
-  return { babies, paotot, bogrim };
+const mapStateToProps = state => {
+  const babies = _.map(state.kids, (val, uid) => {
+    return { ...val, uid };
+  });
+  return { babies };
 };
 
 export default connect(mapStateToProps, { kidsFetch })(KidsList);

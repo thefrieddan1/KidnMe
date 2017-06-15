@@ -6,9 +6,9 @@ import {
 
 export const kidsFetch = () => {
   const { currentUser } = firebase.auth();
-
+  console.log(`${currentUser.uid}`);
   return (dispatch) => {
-    firebase.database().ref(`/gardens/${currentUser.uid}/groups/`)
+    firebase.database().ref(`/${currentUser.uid}/`)
     .on('value', snapshot => {
       dispatch({ type: KIDS_FETCH_SUCCESS, payload: snapshot.val() });
     });
