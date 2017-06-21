@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Text, View, Image } from 'react-native';
 import TimePicker from 'react-native-modal-datetime-picker';
+import { connect } from 'react-redux';
 import { Button } from './common';
+import { poopTimeSave, wokeUpTimeSave, eatTimeSave } from '../actions';
 
 class ListItem extends Component {
-
   state = {
       isTimePickerVisible: false,
       isPoop: false,
@@ -15,19 +16,16 @@ class ListItem extends Component {
   onPoopPress() {
     this.setState({ isPoop: true });
     this.showDateTimePicker();
-    console.log('in poop button');
   }
 
   onWakeUpPressed() {
     this.setState({ isWakeUp: true });
     this.showDateTimePicker();
-    console.log('in wake up button');
   }
 
   onEatPress() {
     this.setState({ isEat: true });
     this.showDateTimePicker();
-    console.log('in eat button');
   }
 
    hideDateTimePicker() {
@@ -37,14 +35,28 @@ class ListItem extends Component {
       this.setState({ isEat: false });
   }
 
-   handleDatePicked(time) {
-     if (this.state.isPoop) {
-       console.log('A poop time has been picked: ', time);
-     } else if (this.state.isEat) {
-       console.log('eat time has been picked: ', time);
-     } else if (this.state.isWakeUp) {
-       console.log('sleep time has been picked: ', time);
+   handleTimePicked(time) {
+     const d = new Date(time);
+     let hours = d.getHours();
+     if (hours < 10) {
+       hours = `0${hours}`;
      }
+     let minutes = d.getMinutes();
+     if (minutes < 10) {
+       minutes = `0${minutes}`;
+     }
+     const newTime = `${hours}:${minutes}`;
+     if (this.state.isPoop) {
+       console.log('poop time has been picked: ', newTime);
+       this.props.poopTimeSave(newTime, this.props.baby.uid);
+     } else if (this.state.isEat) {
+       console.log('eat time has been picked: ', newTime);
+       this.props.eatTimeSave(newTime, this.props.baby.uid);
+     } else if (this.state.isWakeUp) {
+       console.log('wokeUp time has been picked: ', newTime);
+       this.props.wokeUpTimeSave(newTime, this.props.baby.uid);
+     }
+
      this.hideDateTimePicker();
    }
 
@@ -56,7 +68,6 @@ class ListItem extends Component {
   render() {
     const { name, lastName, wokeUp, image, poop, eat } = this.props.baby;
     const img = image || 'https://firebasestorage.googleapis.com/v0/b/kidnme-d36d6.appspot.com/o/Images%2Fdefault.png?alt=media&token=1ffda325-d7dd-4b2d-bbdc-d21529e8603b';
-    console.log(this.props.type);
     return (
       <View style={styles.container}>
         <Image
@@ -77,7 +88,7 @@ class ListItem extends Component {
         </Button>
         <TimePicker
           isVisible={this.state.isTimePickerVisible}
-          onConfirm={this.handleDatePicked.bind(this)}
+          onConfirm={this.handleTimePicked.bind(this)}
           onCancel={this.hideDateTimePicker.bind(this)}
           mode='time'
         />
@@ -105,4 +116,11 @@ const styles = {
   },
 };
 
-export default ListItem;
+const mapStateToProps = (state) => {
+  const { wokeUp, poop, eat } = state.kids;
+  return { wokeUp, poop, eat };
+};
+
+export default connect(mapStateToProps, {
+  poopTimeSave, eatTimeSave, wokeUpTimeSave
+})(ListItem);

@@ -44,7 +44,7 @@ class KidsList extends Component {
     const rowIds = [];
 
     for (let sectionId = 0; sectionId < groups.length; sectionId++) {
-      const currentGroup = groups[sectionId];      
+      const currentGroup = groups[sectionId];
       const users = babies.filter((baby) => baby.group === currentGroup);
 
       if (users.length > 0) {
@@ -93,6 +93,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => {
+  debugger;
   const babies = _.map(state.kids, (val, uid) => {
     return { ...val, uid };
   });

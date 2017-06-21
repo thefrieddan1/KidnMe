@@ -5,3 +5,4 @@ TODO list:
 
 * Add option to update eat and sleep time for groups ( not just per kid )
 * set the times for sleep poop eat on firebase for parent to see
+* add option for staff to add kids 
