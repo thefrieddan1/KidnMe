@@ -16,7 +16,9 @@ class App extends Component {
     storageBucket: 'kidnme-d36d6.appspot.com',
     messagingSenderId: '735653802046'
   };
-  firebase.initializeApp(config);
+  if (!firebase.apps.length) {
+    firebase.initializeApp(config);
+  }
 }
   render() {
     const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
