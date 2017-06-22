@@ -12,13 +12,10 @@ export default (state = INITIAL_STATE, action) => {
     case KIDS_FETCH_SUCCESS:
       return action.payload;
     case POOP_SAVE_TIME_SUCCESS:
-      debugger;
       return { ...state, poop: action.payload };
     case EAT_SAVE_TIME_SUCCESS:
-      debugger;
       return { ...state, eat: action.payload };
     case WOKEUP_SAVE_TIME_SUCCESS:
-      debugger;
       return { ...state, wokeUp: action.payload };
     default:
       return state;

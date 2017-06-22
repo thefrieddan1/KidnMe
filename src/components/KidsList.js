@@ -2,13 +2,18 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { ListView, View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
-import { kidsFetch } from '../actions';
+import { kidFetch, kidsFetch } from '../actions';
 import ListItem from './ListItem';
 import { SearchHeader, SectionHeader } from './common';
 
 class KidsList extends Component {
   componentWillMount() {
-    this.props.kidsFetch();
+    const id = this.props.data;
+    if (id) {
+      this.props.kidFetch(id);
+    } else {
+      this.props.kidsFetch();
+    }
     this.createDataSource(this.props);
   }
 
@@ -93,11 +98,11 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => {
-  debugger;
+  const id = state.id;
   const babies = _.map(state.kids, (val, uid) => {
     return { ...val, uid };
   });
-  return { babies };
+  return { babies, id };
 };
 
-export default connect(mapStateToProps, { kidsFetch })(KidsList);
+export default connect(mapStateToProps, { kidsFetch, kidFetch })(KidsList);

@@ -39,3 +39,5 @@ buck-out/
 \.buckd/
 android/app/libs
 android/keystores/debug.keystore
+# backup firebase json storage file
+kidnme-d36d6-export.json
