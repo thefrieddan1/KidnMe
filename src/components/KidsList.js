@@ -9,6 +9,7 @@ import { SearchHeader, SectionHeader } from './common';
 class KidsList extends Component {
   componentWillMount() {
     const id = this.props.data;
+    // id is not null when parent log in.
     if (id) {
       this.props.kidFetch(id);
     } else {

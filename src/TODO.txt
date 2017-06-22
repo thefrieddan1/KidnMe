@@ -1,8 +1,5 @@
 TODO list:
-* How parent login ? using kid ID
-                   when in Garden mode show all kids
-                   when in parent mode show specific kid
 
 * Add option to update eat and sleep time for groups ( not just per kid )
-* set the times for sleep poop eat on firebase for parent to see
-* add option for staff to add kids 
+* add option for staff to add kids
+* what to do when parent enters wrong ID. right now he cant go back and stuck in blank screen.   
