@@ -11,8 +11,11 @@
     "lodash": "^4.17.4",
     "react": "16.0.0-alpha.6",
     "react-native": "0.44.0",
+    "react-native-elements": "^0.13.0",
+    "react-native-icon-button": "^1.0.0",
     "react-native-modal-datetime-picker": "^4.6.0",
     "react-native-router-flux": "^3.35.0",
+    "react-native-vector-icons": "^4.2.0",
     "react-redux": "^5.0.4",
     "redux": "^3.6.0",
     "redux-thunk": "^2.2.0"

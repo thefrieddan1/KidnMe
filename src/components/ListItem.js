@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Text, View, Image } from 'react-native';
 import TimePicker from 'react-native-modal-datetime-picker';
 import { connect } from 'react-redux';
-import { Button } from './common';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { poopTimeSave, wokeUpTimeSave, eatTimeSave } from '../actions';
 
 class ListItem extends Component {
@@ -77,15 +77,36 @@ class ListItem extends Component {
         <Text style={styles.titleStyle}>
           {name} {lastName}
         </Text>
-        <Button onPress={this.onWakeUpPressed.bind(this)}>
-          woke up at: {wokeUp}
-        </Button>
-        <Button onPress={this.onEatPress.bind(this)}>
-          eat at: {eat}
-        </Button>
-        <Button onPress={this.onPoopPress.bind(this)}>
-          poop at: {poop}
-        </Button>
+        <Icon.Button
+          style={styles.buttonIcon}
+          onPress={this.onWakeUpPressed.bind(this)}
+          name="food-fork-drink"
+          size={20}
+          backgroundColor="white"
+          color="#3A8EDB"
+        >
+          <Text style={styles.detailStyle}>{wokeUp}</Text>
+        </Icon.Button>
+        <Icon.Button
+          style={styles.buttonIcon}
+          onPress={this.onEatPress.bind(this)}
+          name="sleep"
+          size={20}
+          backgroundColor="white"
+          color="gold"
+        >
+          <Text style={styles.detailStyle}>{eat}</Text>
+        </Icon.Button>
+        <Icon.Button
+          style={styles.buttonIcon}
+          onPress={this.onPoopPress.bind(this)}
+          name="emoticon-poop"
+          size={20}
+          backgroundColor="white"
+          color="brown"
+        >
+          <Text style={styles.detailStyle}>{poop}</Text>
+        </Icon.Button>
         <TimePicker
           isVisible={this.state.isTimePickerVisible}
           onConfirm={this.handleTimePicked.bind(this)}
@@ -104,14 +125,21 @@ const styles = {
     flexDirection: 'row',
     alignItems: 'center'
   },
+  buttonIcon: {
+    marginLeft: 3,
+    paddingLeft: 6
+  },
+  detail: {
+    fontSize: 10,
+  },
   titleStyle: {
     marginLeft: 6,
     fontSize: 16,
     paddingLeft: 15
   },
   imageStyle: {
-    height: 40,
-    width: 40,
+    height: 35,
+    width: 35,
     borderRadius: 20
   },
 };

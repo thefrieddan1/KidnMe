@@ -4,7 +4,7 @@ import { ListView, TextInput, View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { kidFetch, kidsFetch } from '../actions';
 import ListItem from './ListItem';
-import { SearchHeader, SectionHeader } from './common';
+import { SectionHeader } from './common';
 
 class KidsList extends Component {
   constructor(props) {
