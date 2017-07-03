@@ -1,7 +1,9 @@
 TODO list:
 
+BUGS:
+  * Fix bug when log in as parent don't see group tab.
+FEATURES:
 * Add option to update eat and sleep time for groups ( not just per kid )
 * add option for staff to add kids
-* what to do when parent enters wrong ID. right now he cant go back and stuck in blank screen.
 * msg from staff to all parents
 * parents can send msg regarding their kid
