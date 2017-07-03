@@ -6,7 +6,6 @@ import { EMAIL_CHANGED,
   LOGIN_USER_SUCCESS,
   LOGIN_USER_FAIL,
   LOGIN_USER,
-  ANNONYMOS_LOGIN_USER,
 } from './types';
 
 export const emailChanged = (text) => {
@@ -67,7 +66,7 @@ const annonymLoginUserSuccess = (dispatch, user, id) => {
     payload: [user, id]
   });
 
-  Actions.main(id);
+  Actions.tabbar(id);
 };
 
 const loginUserSuccess = (dispatch, user) => {
@@ -76,5 +75,5 @@ const loginUserSuccess = (dispatch, user) => {
     payload: user
   });
 
-  Actions.main();
+  Actions.tabbar();
 };

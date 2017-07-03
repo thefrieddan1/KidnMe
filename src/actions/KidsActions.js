@@ -54,7 +54,6 @@ export const eatTimeSave = (eat, uid) => {
 
 export const wokeUpTimeSave = (wokeUp, uid) => {
   console.log(`in woke up save saving ${wokeUp} to ${uid}`);
-  const { currentUser } = firebase.auth();
   return (dispatch) => {
     firebase.database().ref(`/${uid}/`)
     .update({ wokeUp })

@@ -144,11 +144,6 @@ const styles = {
   },
 };
 
-const mapStateToProps = (state) => {
-  const { wokeUp, poop, eat } = state.kids;
-  return { wokeUp, poop, eat };
-};
-
-export default connect(mapStateToProps, {
+export default connect(null, {
   poopTimeSave, eatTimeSave, wokeUpTimeSave
 })(ListItem);

@@ -12,11 +12,11 @@ export default (state = INITIAL_STATE, action) => {
     case KIDS_FETCH_SUCCESS:
       return action.payload;
     case POOP_SAVE_TIME_SUCCESS:
-      return { ...state, poop: action.payload };
+      return { ...state };
     case EAT_SAVE_TIME_SUCCESS:
-      return { ...state, eat: action.payload };
+      return { ...state };
     case WOKEUP_SAVE_TIME_SUCCESS:
-      return { ...state, wokeUp: action.payload };
+      return { ...state };
     default:
       return state;
   }
