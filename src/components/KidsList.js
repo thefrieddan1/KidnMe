@@ -52,9 +52,7 @@ class KidsList extends Component {
   * for HeaderSection with sticky headers according to groups
   */
   formatData(babies) {
-    // now groups is hard coded need to take the groups from the children group
-    const groups = 'babies,paotot,bogrim'.split(',');
-
+    const groups = _.uniqBy(_.map(babies, 'group'));
     const dataBlob = {};
     const sectionIds = [];
     const rowIds = [];
