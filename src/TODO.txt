@@ -1,8 +1,10 @@
 TODO list:
 
+CURRENTLY WORKING ON:
+* groups tab. need to show eat and sleep per group.
+
 FEATURES:
 * Add option to update eat and sleep time for groups ( not just per kid )
 * add option for staff to add kids
 * msg from staff to all parents
 * parents can send msg regarding their kid
-* make the group tab

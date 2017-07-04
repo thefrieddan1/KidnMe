@@ -4,8 +4,15 @@ import {
   KIDS_FETCH_SUCCESS,
   POOP_SAVE_TIME_SUCCESS,
   EAT_SAVE_TIME_SUCCESS,
-  WOKEUP_SAVE_TIME_SUCCESS
+  WOKEUP_SAVE_TIME_SUCCESS,
+  GROUP_FETCH
 } from './types';
+
+export const groupFetch = () => {
+  return (dispatch) => {
+    dispatch({ type: GROUP_FETCH });
+  };
+};
 
 export const kidFetch = (id) => {
   return (dispatch) => {
@@ -31,7 +38,7 @@ export const kidsFetch = () => {
 };
 
 export const poopTimeSave = (poop, uid) => {
-  console.log(`in poop save saving ${poop} to ${uid}`);
+  console.log(`in poop saving ${poop} to ${uid}`);
   return (dispatch) => {
     firebase.database().ref(`/${uid}/`)
     .update({ poop })
@@ -42,7 +49,7 @@ export const poopTimeSave = (poop, uid) => {
 };
 
 export const eatTimeSave = (eat, uid) => {
-  console.log(`in poop save saving ${eat} to ${uid}`);
+  console.log(`in eat saving ${eat} to ${uid}`);
   return (dispatch) => {
     firebase.database().ref(`/${uid}/`)
     .update({ eat })
@@ -53,7 +60,7 @@ export const eatTimeSave = (eat, uid) => {
 };
 
 export const wokeUpTimeSave = (wokeUp, uid) => {
-  console.log(`in woke up save saving ${wokeUp} to ${uid}`);
+  console.log(`in woke up saving ${wokeUp} to ${uid}`);
   return (dispatch) => {
     firebase.database().ref(`/${uid}/`)
     .update({ wokeUp })
