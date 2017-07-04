@@ -18,6 +18,12 @@ const RouterComponent = () => {
         />
       </Scene>
       <Scene
+        key="kidFetch"
+        title="Your Kid"
+        sceneStyle={{ paddingTop: 65 }}
+        component={KidsList}
+      />      
+      <Scene
         key="tabbar"
         tabs
       >

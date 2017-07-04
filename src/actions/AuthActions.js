@@ -66,7 +66,7 @@ const annonymLoginUserSuccess = (dispatch, user, id) => {
     payload: [user, id]
   });
 
-  Actions.tabbar(id);
+  Actions.kidFetch(id);
 };
 
 const loginUserSuccess = (dispatch, user) => {

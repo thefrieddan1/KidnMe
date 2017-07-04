@@ -1,9 +1,8 @@
 TODO list:
 
-BUGS:
-  * Fix bug when log in as parent don't see group tab.
 FEATURES:
 * Add option to update eat and sleep time for groups ( not just per kid )
 * add option for staff to add kids
 * msg from staff to all parents
 * parents can send msg regarding their kid
+* make the group tab
